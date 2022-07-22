@@ -1,4 +1,5 @@
 (function main() {
-  triGenerator(canvasElement, 5);
-  // rectGenerator(canvasElement, 10);
+  // rectGenerator(canvasElement, 40);
+  // triGenerator(canvasElement, 50);
+  triPatternGenerator(canvasElement);
 }());
