@@ -5,14 +5,17 @@ function triPatternGenerator(canvas) {
 
   const x = 0;
   const y = 1;
-  const canvasDimentions = [850, 850];
+  const canvasDimentions = [350, 350];
   canvas.width = canvasDimentions[x]
   canvas.height = canvasDimentions[y]
   const ctx = canvas.getContext('2d', { alpha: false });
   const getRandomInt = (max) => Math.floor(Math.random() * max);
   const generateRandomColor = () => `rgb(${getRandomInt(255)}, ${getRandomInt(255)}, ${getRandomInt(255)})`;
-  const numberOfRows = 400;
-  const triangleMaxSize = 40;
+  const numberOfRows = 40;
+  const triangleMaxSize = 80;
+
+  // Move triangles of the canvas edge
+  const offset = 10;
 
   const createTriangle = () => {
     const tri = [
@@ -49,15 +52,31 @@ function triPatternGenerator(canvas) {
   const xSpacing = canvasDimentions[x] / numberOfRows;
   const ySpacing = canvasDimentions[y] / numberOfRows;
 
-  // move triangles of the canvas edge
-  const offset = 2;
-
   console.time('test');
+
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, canvasDimentions[x], canvasDimentions[y]);
+
+  const getColor = (columnNumber, rowNumber) => {
+    // return generateRandomColor();
+    const rightValue = 255 * (columnNumber / numberOfRows);
+    const bottomValue = 255 * (rowNumber / numberOfRows);
+    const leftValue = 255 - (255 * (columnNumber / numberOfRows));
+    const topValue = 255 - (255 * (rowNumber / numberOfRows));
+
+    const r = getRandomInt(topValue);
+    const g = leftValue;
+    const b = bottomValue;
+
+    return `rgb(${r}, ${g}, ${b})`;
+  };
 
   for (let i = 0; i < numberOfTris; i++) {
     const triangle = createTriangle();
-    const xCoord = (xSpacing * (Math.floor(i / numberOfRows))) + offset;
-    const yCoord = (ySpacing * (i % numberOfRows)) + offset;
+    const columnNumber = (Math.floor(i / numberOfRows));
+    const rowNumber = (i % numberOfRows);
+    const xCoord = (xSpacing * columnNumber) + offset;
+    const yCoord = (ySpacing * rowNumber) + offset;
 
     moveTriangle([xCoord, yCoord], triangle);
 
@@ -65,27 +84,8 @@ function triPatternGenerator(canvas) {
     ctx.moveTo(...triangle[0]);
     ctx.lineTo(...triangle[1]);
     ctx.lineTo(...triangle[2]);
-    ctx.fillStyle = generateRandomColor();
+    ctx.fillStyle = getColor(columnNumber, rowNumber);
     ctx.fill();
-
-    /*
-    // Draw a circle to each corner of the triangle
-    triangle.forEach(coordinate => {
-      ctx.beginPath();
-      ctx.arc(coordinate[x], coordinate[y], 5, 0, 2 * Math.PI);
-      ctx.closePath();
-      ctx.fillStyle = 'rgb(0,0,0)';
-      ctx.fill();
-    });
-
-    // Draw a circle to triangles center
-    const center = triangleCenter(triangle);
-    ctx.beginPath();
-    ctx.arc(center[x], center[y], 5, 0, 2 * Math.PI);
-    ctx.closePath();
-    ctx.fillStyle = `rgb(0,${255 / numberOfTris * index},0)`;
-    ctx.fill();
-    */
   }
 
   console.timeEnd('test');
