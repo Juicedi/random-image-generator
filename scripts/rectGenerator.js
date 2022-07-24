@@ -3,9 +3,7 @@ function rectGenerator(canvas, numberOfRects) {
     return;
   }
 
-  const getRandomInt = (max) => Math.floor(Math.random() * max);
   const ctx = canvas.getContext('2d');
-
   const colors = [];
 
   for (let i = 0; i < numberOfRects; i++) {
