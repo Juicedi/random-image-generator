@@ -1,0 +1,31 @@
+{
+  "name": "random-image-generator",
+  "version": "1.0.0",
+  "description": "Generates random images",
+  "main": "index.html",
+  "scripts": {
+    "start": "./node_modules/http-server/bin/http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juicedi/random-image-generator.git"
+  },
+  "keywords": [
+    "image",
+    "generator",
+    "random"
+  ],
+  "author": "Jussi Latvaniemi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Juicedi/random-image-generator/issues"
+  },
+  "homepage": "https://github.com/Juicedi/random-image-generator#readme",
+  "devDependencies": {
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "http-server": "^14.1.1"
+  }
+}
