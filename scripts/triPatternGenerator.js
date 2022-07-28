@@ -4,8 +4,8 @@ function triPatternGenerator(canvas) {
   }
 
   const canvasDimentions = [350, 350];
-  canvas.width = canvasDimentions[x]
-  canvas.height = canvasDimentions[y]
+  canvas.width = canvasDimentions[x];
+  canvas.height = canvasDimentions[y];
   const ctx = canvas.getContext('2d', { alpha: false });
   const numberOfRows = 30;
 
@@ -13,7 +13,7 @@ function triPatternGenerator(canvas) {
   const offset = 10;
 
   const getColor = (columnNumber, rowNumber) => {
-    const rightValue = 255 * (columnNumber / numberOfRows);
+    // const rightValue = 255 * (columnNumber / numberOfRows);
     const bottomValue = 255 * (rowNumber / numberOfRows);
     const leftValue = 255 - (255 * (columnNumber / numberOfRows));
     const topValue = 255 - (255 * (rowNumber / numberOfRows));
@@ -30,7 +30,7 @@ function triPatternGenerator(canvas) {
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, canvasDimentions[x], canvasDimentions[y]);
 
-  for (let i = 0; i < numberOfTris; i++) {
+  for (let i = 0; i < numberOfTris; i += 1) {
     const triangle = new Triangle({ maxSize: 180 });
     const columnNumber = (Math.floor(i / numberOfRows));
     const rowNumber = (i % numberOfRows);
@@ -47,4 +47,4 @@ function triPatternGenerator(canvas) {
   }
 
   console.timeEnd('test');
-}
+};
