@@ -1,4 +1,17 @@
-function triPatternGenerator(canvas) {
+/* global importScripts */
+
+importScripts(
+  'constants.js',
+  'tools.js',
+  '../classes/line.js',
+  '../classes/rgb.js',
+  '../classes/triangle.js',
+  '../classes/vector.js',
+);
+
+onmessage = function triPatternGenerator(event) {
+  const { canvas } = event.data;
+
   if (!canvas.getContext) {
     return;
   }
@@ -7,17 +20,22 @@ function triPatternGenerator(canvas) {
   canvas.width = canvasDimentions[x];
   canvas.height = canvasDimentions[y];
   const ctx = canvas.getContext('2d', { alpha: false });
-  const numberOfRows = 30;
+  const numberOfRows = 300;
 
   // Move triangles of the canvas edge
-  const offset = 10;
+  const offset = 5;
 
   const getColor = (columnNumber, rowNumber) => {
     // const rightValue = 255 * (columnNumber / numberOfRows);
-    const bottomValue = 255 * (rowNumber / numberOfRows);
-    const leftValue = 255 - (255 * (columnNumber / numberOfRows));
-    const topValue = 255 - (255 * (rowNumber / numberOfRows));
-    return (new RGB(getRandomInt(topValue), leftValue, bottomValue)).toString();
+    const bottomValue = getRandomInt(255 * (rowNumber / numberOfRows));
+    const leftValue = getRandomInt(255 - (255 * (columnNumber / numberOfRows)));
+    const topValue = getRandomInt(255 - (255 * (rowNumber / numberOfRows)));
+
+    return (new RGB(
+      topValue,
+      leftValue,
+      bottomValue,
+    )).toString();
   };
 
   // This is assuming that the canvas is square
@@ -31,7 +49,7 @@ function triPatternGenerator(canvas) {
   ctx.fillRect(0, 0, canvasDimentions[x], canvasDimentions[y]);
 
   for (let i = 0; i < numberOfTris; i += 1) {
-    const triangle = new Triangle({ maxSize: 180 });
+    const triangle = new Triangle({ maxSize: 20 });
     const columnNumber = (Math.floor(i / numberOfRows));
     const rowNumber = (i % numberOfRows);
     const xCoord = (xSpacing * columnNumber) + offset;
