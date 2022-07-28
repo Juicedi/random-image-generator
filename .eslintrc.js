@@ -9,6 +9,14 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
+  globals: {
+    x: true,
+    y: true,
+    getRandomInt: true,
+    RGB: true,
+    Triangle: true,
+  },
   rules: {
+    'no-param-reassign': 'off',
   },
 };
